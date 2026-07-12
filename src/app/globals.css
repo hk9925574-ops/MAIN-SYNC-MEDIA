@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-theme-void: #0B0710;
+  --color-theme-ink: #1B1224;
+  --color-theme-ember: #FF6A3D;
+  --color-theme-violet: #A855F7;
+  --color-theme-champagne: #F2C879;
+  --color-theme-paper: #F5EFE8;
+  --color-theme-fog: #1A0F14;
+  
+  --font-sans: var(--font-space), sans-serif;
+  --font-bebas: var(--font-bebas), sans-serif;
+  --font-mono: var(--font-mono), monospace;
+}
+
+html,
+body,
+:root {
+  width: 100%;
+  margin: 0;
+  background: var(--color-theme-void);
+  scroll-behavior: smooth;
+}
+
+canvas {
+  display: block;
+}
+
+.btn-scene {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  cursor: none !important;
+  pointer-events: auto; /* Required to be clickable inside pointer-events-none container */
+}
+
+.btn-scene:hover {
+  background: currentColor;
+  color: var(--color-theme-void);
+  box-shadow: 0 0 20px currentColor;
+}
