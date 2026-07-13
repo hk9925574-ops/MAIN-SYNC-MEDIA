@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import TextReveal from "@/components/effects/TextReveal";
 
 export default function SolutionsOverview() {
   const containerVariants = {
@@ -11,12 +12,12 @@ export default function SolutionsOverview() {
     }
   };
 
-  const itemLeftVariants = {
+  const itemLeftVariants: any = {
     hidden: { opacity: 0, x: -50 },
     visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }
   };
 
-  const itemRightVariants = {
+  const itemRightVariants: any = {
     hidden: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }
   };
@@ -31,13 +32,13 @@ export default function SolutionsOverview() {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.header variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { type: "spring" } } }} className="mb-24 text-center flex flex-col items-center">
-          <span className="text-[#D2FF00] font-mono text-xs tracking-widest uppercase border border-[#D2FF00]/30 px-3 py-1 rounded-full bg-[#D2FF00]/10">
+          <span className="text-[#D2FF00] font-mono text-xs tracking-widest uppercase border border-[#D2FF00]/30 px-3 py-1 rounded-full bg-[#D2FF00]/10 mb-8">
             Tailored Solutions
           </span>
-          <h2 className="text-6xl md:text-8xl font-bebas tracking-wide leading-[0.9] mt-8">
-            Built For <br />
-            <span className="text-white">Modern Advertising</span>
-          </h2>
+          <TextReveal 
+            text="BUILT FOR MODERN ADVERTISING" 
+            className="text-6xl md:text-8xl font-bebas tracking-wide leading-[0.9] mt-8 justify-center"
+          />
           <p className="mt-8 text-xl font-sans font-light text-white/70 max-w-2xl leading-relaxed">
             Whether you are an advertiser, agency, or broadcaster, SYNC provides one honest view of audiences and business impact.
           </p>

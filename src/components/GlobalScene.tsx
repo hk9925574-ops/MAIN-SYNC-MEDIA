@@ -176,6 +176,8 @@ function CameraController() {
   return null;
 }
 
+import Magnetic from "@/components/effects/Magnetic";
+
 export default function GlobalScene() {
   const { currentSceneIndex, goToNextScene, goToPrevScene, loopToBeginning, isTransitioning } = useTransitionManager();
 
@@ -223,27 +225,20 @@ export default function GlobalScene() {
 
             {/* Post Processing */}
             <EffectComposer>
-              <Bloom luminanceThreshold={1.0} mipmapBlur intensity={1.5} />
+              <Bloom luminanceThreshold={0.7} mipmapBlur intensity={0.4} />
               <DynamicAberration />
             </EffectComposer>
           </Suspense>
         </Canvas>
       </div>
 
+      {/* Gradient fade to seamlessly blend with the next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#050506] to-transparent z-20 pointer-events-none"></div>
+
       {/* HTML OVERLAY */}
-      <div className="relative z-10 w-full h-screen pointer-events-none flex flex-col justify-between p-8">
+      <div className="relative z-10 w-full h-screen pointer-events-none flex flex-col justify-between p-8 pt-32">
         
         <InvestorMetricsHUD />
-
-        <header className="flex justify-between items-center w-full">
-          <h1 className="text-xl font-bold tracking-widest text-white mix-blend-plus-lighter uppercase">
-            SyncMedia
-          </h1>
-          <nav className="flex gap-4 pointer-events-auto items-center">
-             <span className="sr-only">Current Scene: {SCENES[currentSceneIndex]}</span>
-             <p className="text-xs text-white/50 tracking-widest">{SCENES[currentSceneIndex]}</p>
-          </nav>
-        </header>
 
         <main className="max-w-2xl mt-auto mb-32 pointer-events-auto relative h-64">
           <AnimatePresence mode="wait">
@@ -264,14 +259,18 @@ export default function GlobalScene() {
               <p className="text-white/70 text-lg max-w-md font-sans font-light leading-relaxed">
                 {sceneContent[currentSceneIndex].desc}
               </p>
-              <button 
-                onClick={sceneContent[currentSceneIndex].action === "next" ? goToNextScene : loopToBeginning} 
-                className="btn-scene group"
-                style={{ color: sceneContent[currentSceneIndex].color, borderColor: sceneContent[currentSceneIndex].color }}
-              >
-                <span className="relative z-10">{sceneContent[currentSceneIndex].btn}</span>
-                <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-              </button>
+              <div className="pt-2">
+                <Magnetic strength={0.2}>
+                  <button 
+                    onClick={sceneContent[currentSceneIndex].action === "next" ? goToNextScene : loopToBeginning} 
+                    className="btn-scene group hover-trigger"
+                    style={{ color: sceneContent[currentSceneIndex].color, borderColor: sceneContent[currentSceneIndex].color }}
+                  >
+                    <span className="relative z-10">{sceneContent[currentSceneIndex].btn}</span>
+                    <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+                  </button>
+                </Magnetic>
+              </div>
             </motion.div>
           </AnimatePresence>
         </main>

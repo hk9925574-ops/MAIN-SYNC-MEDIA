@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import TextReveal from "@/components/effects/TextReveal";
 
 export default function PlatformOverview() {
   const containerVariants = {
@@ -11,7 +12,7 @@ export default function PlatformOverview() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
@@ -33,10 +34,10 @@ export default function PlatformOverview() {
           <span className="text-[#3FE0FF] font-mono text-xs tracking-widest uppercase border border-[#3FE0FF]/30 px-3 py-1 rounded-full bg-[#3FE0FF]/10">
             Platform Capabilities
           </span>
-          <h2 className="text-6xl md:text-8xl font-bebas tracking-wide leading-[0.9] mt-8">
-            Single-Source <br />
-            <span className="text-[#D2FF00]">Cross-Media Measurement</span>
-          </h2>
+          <TextReveal 
+            text="SINGLE-SOURCE CROSS-MEDIA MEASUREMENT" 
+            className="text-6xl md:text-8xl font-bebas tracking-wide leading-[0.9] mt-8 justify-center"
+          />
           <p className="mt-8 text-xl font-sans font-light text-white/70 max-w-2xl mx-auto leading-relaxed">
             SYNC measures the same people across linear TV, OTT, YouTube, Meta and digital.
             We de-duplicate reach and frequency, then connect exposure to real business outcomes.

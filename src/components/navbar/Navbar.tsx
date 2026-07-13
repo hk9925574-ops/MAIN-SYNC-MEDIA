@@ -1,13 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LazyCanvasMount from "@/components/effects/LazyCanvasMount";
 import ApertureMark from "@/components/worlds/ApertureMark";
+
+import Magnetic from "@/components/effects/Magnetic";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const links = [
     {
@@ -37,7 +48,11 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full pointer-events-none">
-      <nav className="mx-6 mt-6 flex h-20 items-center justify-between rounded-2xl border border-white/5 bg-[#050506]/30 px-10 backdrop-blur-md pointer-events-auto transition-all duration-500 hover:bg-[#050506]/60">
+      <nav className={`mx-6 mt-6 flex h-20 items-center justify-between rounded-2xl border px-10 pointer-events-auto transition-all duration-500 ${
+        scrolled 
+          ? 'bg-[#050506]/80 border-white/10 backdrop-blur-md shadow-2xl' 
+          : 'bg-transparent border-transparent hover:bg-[#050506]/30 hover:border-white/5 hover:backdrop-blur-md'
+      }`}>
         <Link href="/"
           className="flex cursor-pointer items-center gap-3 group shrink-0"
           onMouseEnter={() => setHovered(true)}
@@ -83,12 +98,14 @@ export default function Navbar() {
           ))}
         </div>
 
-        <Link
-          href="/#contact"
-          className="shrink-0 rounded-full border border-[#D2FF00]/30 bg-transparent px-4 py-2 md:px-6 md:py-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#D2FF00] transition-all duration-300 hover:bg-[#D2FF00] hover:text-[#050506] hover:shadow-[0_0_20px_rgba(210,255,0,0.4)]"
-        >
-          Book a Demo
-        </Link>
+        <Magnetic strength={0.2}>
+          <Link
+            href="/#contact"
+            className="shrink-0 rounded-full border border-[#D2FF00]/30 bg-transparent px-4 py-2 md:px-6 md:py-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-[#D2FF00] transition-all duration-300 hover:bg-[#D2FF00] hover:text-[#050506] hover:shadow-[0_0_20px_rgba(210,255,0,0.4)]"
+          >
+            Book a Demo
+          </Link>
+        </Magnetic>
       </nav>
     </header>
   );

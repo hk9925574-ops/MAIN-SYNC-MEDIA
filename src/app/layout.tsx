@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import NoiseOverlay from "@/components/effects/NoiseOverlay";
+import CustomCursor from "@/components/effects/CustomCursor";
+import SmoothScroll from "@/components/effects/SmoothScroll";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -33,7 +36,13 @@ export default function RootLayout({
       lang="en"
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>{children}</body>
+      <body className="min-h-full flex flex-col font-sans relative" suppressHydrationWarning>
+        <NoiseOverlay />
+        <CustomCursor />
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   );
 }
